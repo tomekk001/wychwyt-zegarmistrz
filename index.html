@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wychwyt – zakład zegarmistrzowski, Poznań</title>
+<meta name="description" content="Serwis zegarków mechanicznych i zabytkowych zegarów w Poznaniu. Sprawdź status naprawy po numerze zlecenia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;700&display=swap">
+<style>
+:root{--noc:#15181C;--noc-2:#1E2228;--mosiadz:#C9A15A;--mosiadz-2:#E6C98E;--kosc:#EDE7DA;--szary:#9AA0A6;--linia:#30353D;--zielony:#7BC59A;
+  --serif:"Instrument Serif",Georgia,serif;--f:"Manrope","Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--noc);color:var(--kosc);font-family:var(--f);font-size:1.0625rem;line-height:1.6;color-scheme:dark}
+h1,h2,h3{margin:0;font-family:var(--serif);font-weight:400;line-height:1;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:2px solid var(--mosiadz);outline-offset:3px}
+.wrap{max-width:1160px;margin:0 auto;padding-inline:max(18px,4vw)}
+header .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:20px;flex-wrap:wrap;border-bottom:1px solid var(--linia)}
+.brand{font-family:var(--serif);font-size:1.9rem;text-decoration:none;color:var(--kosc);display:flex;align-items:center;gap:10px}
+.brand svg{width:26px;height:26px}
+header nav{display:flex;gap:24px;font-size:.95rem}
+header nav a{color:var(--szary);text-decoration:none}
+header nav a:hover{color:var(--mosiadz-2)}
+
+.hero .wrap{display:grid;gap:40px;align-items:center;padding-block:clamp(40px,7vw,96px)}
+@media(min-width:900px){.hero .wrap{grid-template-columns:1.1fr 1fr}}
+.hero h1{font-size:clamp(3.2rem,1.8rem + 6vw,7rem)}
+.hero h1 i{color:var(--mosiadz)}
+.hero p{font-size:1.18rem;color:#C4C0B6;max-width:30em;margin-top:24px}
+.dial{width:100%;max-width:440px;justify-self:center;aspect-ratio:1}
+.dial svg{width:100%;height:100%}
+.time{text-align:center;font-family:var(--serif);font-size:1.15rem;color:var(--szary);margin-top:10px;font-variant-numeric:tabular-nums}
+
+section{padding-block:clamp(60px,8vw,108px)}
+h2{font-size:clamp(2.4rem,1.5rem + 3.4vw,4.4rem)}
+.lead{color:#C4C0B6;font-size:1.12rem;max-width:38em;margin-top:16px}
+
+/* Status naprawy */
+.track{background:var(--noc-2);border-top:1px solid var(--linia);border-bottom:1px solid var(--linia)}
+.track form{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}
+.track input{font:inherit;font-size:1.25rem;letter-spacing:.06em;text-transform:uppercase;padding:13px 16px;background:var(--noc);color:var(--kosc);border:1px solid var(--linia);border-radius:4px;width:min(100%,14em)}
+.track input:focus{border-color:var(--mosiadz);outline:none}
+.btn{font:inherit;font-weight:700;background:var(--mosiadz);color:var(--noc);border:0;border-radius:4px;padding:13px 24px;cursor:pointer}
+.btn:hover{background:var(--mosiadz-2)}
+.try{font-size:.9rem;color:var(--szary);margin-top:12px}
+.try button{font:inherit;background:none;border:0;color:var(--mosiadz-2);text-decoration:underline;cursor:pointer;padding:0 4px}
+.card{margin-top:32px;border:1px solid var(--linia);border-radius:6px;padding:clamp(20px,3vw,32px);display:grid;gap:22px;background:var(--noc)}
+.card .top{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:baseline}
+.card .top h3{font-size:2rem}
+.card .top span{color:var(--szary);font-size:.95rem}
+.stages{list-style:none;margin:0;padding:0;display:grid;gap:0}
+@media(min-width:760px){.stages{grid-template-columns:repeat(5,1fr)}}
+.stages li{position:relative;padding:14px 12px 14px 30px;border-left:2px solid var(--linia);color:var(--szary)}
+@media(min-width:760px){.stages li{border-left:0;border-top:2px solid var(--linia);padding:18px 12px 0 0}}
+.stages li::before{content:"";position:absolute;left:-7px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--noc);border:2px solid var(--linia)}
+@media(min-width:760px){.stages li::before{left:0;top:-7px}}
+.stages li.done{color:var(--kosc);border-color:var(--mosiadz)}
+.stages li.done::before{background:var(--mosiadz);border-color:var(--mosiadz)}
+.stages li.now{color:var(--mosiadz-2)}
+.stages li.now::before{background:var(--noc);border-color:var(--mosiadz-2);box-shadow:0 0 0 4px rgba(230,201,142,.2)}
+.stages b{display:block;font-weight:700}
+.stages small{font-size:.85rem}
+.note{border-left:2px solid var(--mosiadz);padding-left:14px;color:#C4C0B6}
+.ready{color:var(--zielony);font-weight:700}
+.err{color:#E89A8C}
+
+/* Cennik */
+.list{margin-top:40px;display:grid;gap:0;border-top:1px solid var(--mosiadz)}
+.item{display:flex;align-items:baseline;gap:12px;padding:18px 0;border-bottom:1px solid var(--linia)}
+.item h3{font-size:1.6rem;flex:none}
+.item .dots{flex:1;border-bottom:1px dotted #4A5059;transform:translateY(-6px);min-width:20px}
+.item span{white-space:nowrap;font-variant-numeric:tabular-nums}
+.item p{flex-basis:100%;color:var(--szary);font-size:.95rem}
+.item{flex-wrap:wrap}
+
+.brands{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:28px;font-family:var(--serif);font-size:1.6rem;color:var(--szary)}
+footer{border-top:1px solid var(--linia);padding-block:28px;font-size:.9rem;color:var(--szary)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="brand" href="#"><svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="11" fill="none" stroke="#C9A15A" stroke-width="2"/><path d="M13 6v7l5 3" stroke="#EDE7DA" stroke-width="2" fill="none" stroke-linecap="round"/></svg>Wychwyt</a>
+  <nav aria-label="Menu"><a href="#status">Status naprawy</a><a href="#cennik">Cennik</a><a href="#zaklad">Zakład</a></nav>
+</div></header>
+
+<main>
+<section class="hero" style="padding:0">
+  <div class="wrap">
+    <div>
+      <h1>Naprawiamy czas, który <i>stanął</i></h1>
+      <p>Zakład zegarmistrzowski na poznańskich Jeżycach. Serwisujemy zegarki mechaniczne, kwarcowe i zabytkowe zegary ścienne. Na każdą naprawę dajemy dwa lata gwarancji.</p>
+    </div>
+    <div>
+      <div class="dial"><svg viewBox="-110 -110 220 220" id="clock" role="img" aria-label="Zegar pokazujący aktualny czas"></svg></div>
+      <p class="time" id="time"></p>
+    </div>
+  </div>
+</section>
+
+<section class="track" id="status">
+  <div class="wrap">
+    <h2>Gdzie jest mój zegarek?</h2>
+    <p class="lead">Numer zlecenia znajdziesz na kwicie, który dostałeś przy oddaniu zegarka. Ma postać WY-0000.</p>
+    <form id="trackForm"><label for="ticket" style="position:absolute;left:-9999px">Numer zlecenia</label><input id="ticket" placeholder="WY-0000" autocomplete="off"><button class="btn" type="submit">Sprawdź status</button></form>
+    <p class="try">Przykładowe numery: <button type="button" data-t="WY-1024">WY-1024</button><button type="button" data-t="WY-1187">WY-1187</button><button type="button" data-t="WY-0952">WY-0952</button></p>
+    <div id="result" aria-live="polite"></div>
+  </div>
+</section>
+
+<section id="cennik">
+  <div class="wrap">
+    <h2>Cennik usług</h2>
+    <p class="lead">Ceny dotyczą typowych mechanizmów. Komplikacje, takie jak chronograf czy kalendarz, wyceniamy po otwarciu koperty, zawsze przed rozpoczęciem pracy.</p>
+    <div class="list">
+      <div class="item"><h3>Wymiana baterii</h3><span class="dots"></span><span>od 25 zł</span><p>Ze sprawdzeniem szczelności dla zegarków wodoszczelnych.</p></div>
+      <div class="item"><h3>Przegląd mechanizmu</h3><span class="dots"></span><span>od 380 zł</span><p>Demontaż, mycie, smarowanie, regulacja chodu na czasomierzu.</p></div>
+      <div class="item"><h3>Polerowanie koperty</h3><span class="dots"></span><span>od 150 zł</span><p>Z zachowaniem oryginalnych krawędzi i szczotkowań.</p></div>
+      <div class="item"><h3>Zegary ścienne i stojące</h3><span class="dots"></span><span>od 450 zł</span><p>Odbieramy z domu na terenie Poznania.</p></div>
+      <div class="item"><h3>Wymiana szkła</h3><span class="dots"></span><span>od 90 zł</span><p>Mineralne, szafirowe lub akrylowe, dopasowane do modelu.</p></div>
+    </div>
+    <div class="brands" aria-label="Serwisujemy między innymi"><span>Atlantic</span><span>Błonie</span><span>Poljot</span><span>Seiko</span><span>Omega</span><span>Junghans</span></div>
+  </div>
+</section>
+
+<section id="zaklad" style="background:var(--noc-2);border-top:1px solid var(--linia)">
+  <div class="wrap">
+    <h2>Zakład przy Szamarzewskiego</h2>
+    <p class="lead">Ul. Szamarzewskiego 0, Poznań. Poniedziałek–piątek 10:00–18:00, sobota 10:00–14:00. Tel. 61 000 00 00.</p>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><p>© Wychwyt, zakład zegarmistrzowski</p><p>Strona pokazowa przygotowana przez WebFolk. Firma i dane są fikcyjne.</p></div></footer>
+
+<script>
+(function(){
+  /* Tarcza zegara z sekundnikiem */
+  var NS='http://www.w3.org/2000/svg',s=document.getElementById('clock');
+  function el(n,a,p){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);(p||s).appendChild(e);return e;}
+  el('circle',{r:104,fill:'#1E2228',stroke:'#C9A15A','stroke-width':3});
+  el('circle',{r:94,fill:'none',stroke:'#30353D','stroke-width':1});
+  for(var i=0;i<60;i++){var big=i%5===0;el('line',{x1:0,y1:-90,x2:0,y2:big?-78:-85,stroke:big?'#E6C98E':'#5A606A','stroke-width':big?3:1,transform:'rotate('+i*6+')'});}
+  var rom=['XII','I','II','III','IIII','V','VI','VII','VIII','IX','X','XI'];
+  rom.forEach(function(r,i){var a=(i*30-90)*Math.PI/180;var t=el('text',{x:Math.cos(a)*64,y:Math.sin(a)*64+6,'text-anchor':'middle','font-family':'Instrument Serif, serif','font-size':17,fill:'#EDE7DA'});t.textContent=r;});
+  var sub=el('circle',{cx:0,cy:40,r:16,fill:'none',stroke:'#30353D'});
+  var hh=el('path',{d:'M-4 10 L0 -48 L4 10Z',fill:'#EDE7DA'}),mm=el('path',{d:'M-3 12 L0 -76 L3 12Z',fill:'#EDE7DA'});
+  var ss=el('line',{x1:0,y1:46,x2:0,y2:26,stroke:'#C9A15A','stroke-width':1.5});
+  el('circle',{r:5,fill:'#C9A15A'});
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches,timeEl=document.getElementById('time');
+  function tick(){
+    var d=new Date(),sec=d.getSeconds()+(reduce?0:d.getMilliseconds()/1000);
+    var m=d.getMinutes()+sec/60,h=(d.getHours()%12)+m/60;
+    hh.setAttribute('transform','rotate('+h*30+')');mm.setAttribute('transform','rotate('+m*6+')');
+    var step=reduce?d.getSeconds():Math.floor(sec*6)/6;
+    ss.setAttribute('transform','rotate('+(step*6)+' 0 40)');
+    timeEl.textContent=d.toLocaleTimeString('pl-PL')+', czas poznański';
+    reduce?setTimeout(tick,1000):requestAnimationFrame(tick);
+  }
+  tick();
+
+  /* Status zlecenia */
+  var stages=[['Przyjęty','oględziny'],['Wycena','czeka na akceptację'],['Naprawa','na stole'],['Regulacja','test chodu 5 dni'],['Gotowy','do odbioru']];
+  var tickets={
+    'WY-1024':{watch:'Atlantic Worldmaster, lata 70.',at:2,note:'Mechanizm rozebrany i umyty. Wymieniamy sprężynę napędową, oryginał był pęknięty.',date:'12 paź'},
+    'WY-1187':{watch:'Seiko 5 Automatic',at:4,note:'Chód +3 s na dobę. Zapraszamy po odbiór w godzinach otwarcia.',date:'3 paź'},
+    'WY-0952':{watch:'Zegar ścienny Gustav Becker',at:1,note:'Wycena: 690 zł (tuleje, wahadło, czyszczenie). Zadzwoń, aby zaakceptować.',date:'15 paź'}
+  };
+  var res=document.getElementById('result'),inp=document.getElementById('ticket');
+  function show(code){
+    code=code.trim().toUpperCase().replace(/^WY\s*-?\s*/,'WY-');var t=tickets[code];
+    if(!t){res.innerHTML='<div class="card"><p class="err">Nie znaleźliśmy zlecenia '+(code||'bez numeru')+'. Sprawdź numer na kwicie albo zadzwoń: 61 000 00 00.</p></div>';return;}
+    var li='';stages.forEach(function(s,i){li+='<li class="'+(i<t.at?'done':i===t.at?'now':'')+'"><b>'+s[0]+'</b><small>'+s[1]+'</small></li>';});
+    res.innerHTML='<div class="card"><div class="top"><h3>'+t.watch+'</h3><span>'+code+', przyjęty '+t.date+'</span></div><ol class="stages">'+li+'</ol><p class="note">'+(t.at===4?'<span class="ready">Gotowy do odbioru. </span>':'')+t.note+'</p></div>';
+  }
+  document.getElementById('trackForm').addEventListener('submit',function(e){e.preventDefault();show(inp.value);});
+  document.querySelectorAll('.try button').forEach(function(b){b.onclick=function(){inp.value=b.dataset.t;show(b.dataset.t);};});
+})();
+</script>
+</body>
+</html>
